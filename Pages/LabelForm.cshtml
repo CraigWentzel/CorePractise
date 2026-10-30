@@ -1,0 +1,49 @@
+﻿@page
+@model CorePractise.Pages.LabelFormModel
+@{
+    ViewData["Title"] = "Label Form";
+
+
+}
+
+<h1>Label Form</h1>
+
+<form method="post" asp-page="/LabelForm">
+    <div class="mb-3">
+        <label asp-for="SelectedCompany"  class="form-label">Company</label>
+        <select asp-for="SelectedCompany" asp-items="Model.Companies" class="form-select">
+            <option value="">-- Select --</option>
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="SelectedStockCode" class="form-label">Stock Code</label>
+        <select asp-for="SelectedStockCode" asp-items="Model.StockCodes" class="form-select">
+            <option value="">-- Select --</option>
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="BatchNumber" class="form-label">Batch Number</label>
+        <input asp-for="BatchNumber" class="form-control" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+    <a asp-page="/LabelForm" class="btn btn-secondary ms-2">Clear</a>
+
+
+    </form>
+
+@if (!string.IsNullOrEmpty(Model.Message))
+{
+    <p class="mt-3">@Model.Message</p>
+}
+
+@section Scripts {
+    <script>
+        document.getElementById('SelectedCompany').addEventListener('change', function () {
+            this.form.action = '?handler=CompanyChanged';
+            this.form.submit();
+        });
+    </script>
+}
